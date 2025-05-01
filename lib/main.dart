@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/database/habit_database.dart';
 import 'package:habit_tracker/pages/home_page.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // intialize database 
+ await HabitDatabase.initalize();
+ await HabitDatabase().saveFirstLaunchDate();
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => HabitDatabase(),
+      child: const MyApp(),
+      )
+    );
 }
 
 class MyApp extends StatelessWidget {
