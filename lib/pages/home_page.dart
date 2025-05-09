@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/components/habit_heat_map.dart';
 import 'package:habit_tracker/components/habit_tile.dart';
 import 'package:habit_tracker/database/habit_database.dart';
 import 'package:habit_tracker/models/habit.dart';
@@ -157,9 +158,40 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.surface,
         child: const Icon(Icons.add),
         ),
-        body: _buildHabitList(),
+        body: ListView(
+          children: [
+            //heat map 
+             _buildHeatMap(),
+            // habit list
+             _buildHabitList()
+          ],
+        )
     );
   }
+
+  Widget _buildHeatMap() {
+    final habitDatabase = context.watch<HabitDatabase>();
+
+    // get habits
+    List<Habit> habits = habitDatabase.currentHabits;
+
+    return FutureBuilder<DateTime?>(
+      future: habitDatabase.getFirstLaunchDate(), 
+      builder: (context, snapshot) {
+           if(snapshot.hasData){
+             return HabitHeatMap(
+              startDate: snapshot.data!, 
+              datasets: prepHeatMapDataset(habits)
+              );
+           }
+           else {
+            return Container();
+           }
+      });
+
+
+  }
+    
 
   // habit list widget 
   Widget _buildHabitList() {
@@ -173,6 +205,9 @@ class _HomePageState extends State<HomePage> {
   //return list of habits UI
   return ListView.builder(
     itemCount: habits.length,
+    // nested list scrolling issue fix
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
     itemBuilder: (context, index) {
       // get each habit 
       final habit = habits[index];
