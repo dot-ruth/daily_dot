@@ -38,6 +38,7 @@ dependencies:
   provider: ^6.1.5
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
+  flutter_slidable: ^4.0.0
 
 dev_dependencies:
   flutter_test:

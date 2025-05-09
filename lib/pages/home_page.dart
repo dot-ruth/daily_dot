@@ -72,6 +72,79 @@ class _HomePageState extends State<HomePage> {
 
   }
 
+// Edit Habit Dialog Boc
+  void editHabitDialogBox(Habit habit) {
+   textController.text = habit.name;
+   showDialog(
+    context: context, 
+    builder: (context) => AlertDialog(
+      content: TextField(
+        controller: textController,
+      ),
+      actions: [
+          //save button
+          MaterialButton(onPressed: () {
+            String newHabitName = textController.text;
+
+            // save to db
+            context.read<HabitDatabase>().updateHabitName(habit.id,newHabitName);
+
+            //pop the dialog box
+            Navigator.pop(context);
+
+            // clear controller 
+            textController.clear();
+          },
+          child: const Text("Save")
+          ),
+
+          // cancle button 
+          MaterialButton(onPressed: () {
+            // close the dialog box
+            Navigator.pop(context);
+
+            // clear the controller 
+            textController.clear();
+          },
+          child: const Text("Cancle")
+          )
+        ],
+    ));
+  }
+
+  //delete habit 
+  void deleteHabitDialogBox(Habit habit) {
+   textController.text = habit.name;
+   showDialog(
+    context: context, 
+    builder: (context) => AlertDialog(
+      // content: TextField(
+      //   controller: textController,
+      // ),
+      title: const Text("Delete Habit"),
+      content: const Text("Are you sure you want to delete this habit?"),
+      actions: [
+          //save button
+          MaterialButton(onPressed: () {
+           // delete from db
+            context.read<HabitDatabase>().deleteHabit(habit.id);
+
+            //pop the dialog box
+            Navigator.pop(context);
+          },
+          child: const Text("Delete")
+          ),
+
+          // cancle button 
+          MaterialButton(onPressed: () {
+            // close the dialog box
+            Navigator.pop(context);
+          },
+          child: const Text("Cancle")
+          )
+        ],
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,14 +183,13 @@ class _HomePageState extends State<HomePage> {
       return HabitTile(
         text: habit.name, 
         isCompleted: isCompletedToday,
-        onChanged: (value) => checkHabitOnOff(value, habit)
+        onChanged: (value) => checkHabitOnOff(value, habit),
+        editHabit: (context) => editHabitDialogBox(habit),
+        deleteHabit: (context) => deleteHabitDialogBox(habit),
         );
 
     });
 
-  
-
-  
   }
     
 }
