@@ -5,6 +5,7 @@ import 'package:habit_tracker/database/habit_database.dart';
 import 'package:habit_tracker/models/habit.dart';
 import 'package:habit_tracker/util/habit_util.dart';
 import 'package:provider/provider.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,9 +30,14 @@ class _HomePageState extends State<HomePage> {
     showDialog(
       context: context, 
       builder: (context) => AlertDialog(
+        backgroundColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.white : Color(0xff0a0a0a),
         content: TextField(
           controller: textController,
-          decoration: const InputDecoration(hintText: "Add a new habit"),
+          style:  TextStyle( color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+          decoration: const InputDecoration(
+            hintText: "Add a new habit"
+            
+            ),
         ),
         actions: [
           //save button
@@ -47,7 +53,10 @@ class _HomePageState extends State<HomePage> {
             // clear controller 
             textController.clear();
           },
-          child: const Text("Save")
+          child: Text(
+            "Save",
+            style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+            )
           ),
 
           // cancle button 
@@ -58,7 +67,10 @@ class _HomePageState extends State<HomePage> {
             // clear the controller 
             textController.clear();
           },
-          child: const Text("Cancle")
+          child: Text(
+            "Cancle",
+            style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+            )
           )
         ],
       ));
@@ -79,8 +91,10 @@ class _HomePageState extends State<HomePage> {
    showDialog(
     context: context, 
     builder: (context) => AlertDialog(
+      backgroundColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.white : Color(0xff0a0a0a),
       content: TextField(
         controller: textController,
+        style:  TextStyle( color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white)
       ),
       actions: [
           //save button
@@ -96,7 +110,10 @@ class _HomePageState extends State<HomePage> {
             // clear controller 
             textController.clear();
           },
-          child: const Text("Save")
+          child: Text(
+            "Save",
+            style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+            )
           ),
 
           // cancle button 
@@ -107,7 +124,10 @@ class _HomePageState extends State<HomePage> {
             // clear the controller 
             textController.clear();
           },
-          child: const Text("Cancle")
+          child: Text(
+            "Cancle",
+            style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+            )
           )
         ],
     ));
@@ -119,11 +139,15 @@ class _HomePageState extends State<HomePage> {
    showDialog(
     context: context, 
     builder: (context) => AlertDialog(
-      // content: TextField(
-      //   controller: textController,
-      // ),
-      title: const Text("Delete Habit"),
-      content: const Text("Are you sure you want to delete this habit?"),
+      backgroundColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.white : Color(0xff0a0a0a),
+      title:  Text(
+        "Delete Habit",
+        style:  TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+        ),
+      content:  Text(
+        "Are you sure you want to delete this habit?",
+        style:  TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+        ),
       actions: [
           //save button
           MaterialButton(onPressed: () {
@@ -133,7 +157,10 @@ class _HomePageState extends State<HomePage> {
             //pop the dialog box
             Navigator.pop(context);
           },
-          child: const Text("Delete")
+          child:  Text(
+            "Delete",
+            style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+            )
           ),
 
           // cancle button 
@@ -141,7 +168,10 @@ class _HomePageState extends State<HomePage> {
             // close the dialog box
             Navigator.pop(context);
           },
-          child: const Text("Cancle")
+          child: Text(
+            "Cancle",
+            style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+            )
           )
         ],
     ));
@@ -150,13 +180,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-       backgroundColor: Theme.of(context).colorScheme.surface,
-       appBar: AppBar(),
+       appBar: AppBar(
+        title: const Text("Habit Tracker"),
+        elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () {}, 
+            icon: Icon(Icons.settings)), 
+          IconButton(
+            onPressed: () {
+              ThemeProvider.controllerOf(context).nextTheme();
+            }, 
+            icon: Icon(ThemeProvider.themeOf(context).id == "light_theme" ? Icons.dark_mode_outlined : Icons.wb_sunny_outlined,))
+        ],
+       ),
        floatingActionButton: FloatingActionButton(
         onPressed: createNewHabit,
         elevation: 0,
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        child: const Icon(Icons.add),
+        backgroundColor:ThemeProvider.themeOf(context).id == "light_theme" ? Colors.grey[300] : Colors.grey[800],
+        child:  Icon(
+          Icons.add,
+          color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white,
+          ),
         ),
         body: ListView(
           children: [

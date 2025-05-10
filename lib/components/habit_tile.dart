@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 class HabitTile extends StatelessWidget {
   final bool isCompleted;
@@ -28,7 +29,8 @@ class HabitTile extends StatelessWidget {
             //edit button 
             SlidableAction(
               onPressed: editHabit,
-              backgroundColor: Colors.grey.shade800,
+              foregroundColor: Colors.blue, 
+              backgroundColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.white : Color(0xff0a0a0a), 
               icon: Icons.edit,
               borderRadius: BorderRadius.circular(8)
               ),
@@ -36,7 +38,8 @@ class HabitTile extends StatelessWidget {
               //delete button 
             SlidableAction(
               onPressed: deleteHabit,
-              backgroundColor: Colors.red.shade800,
+              foregroundColor: Colors.red, 
+              backgroundColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.white : Color(0xff0a0a0a), 
               icon: Icons.delete,
               borderRadius: BorderRadius.circular(8)
               )
@@ -51,7 +54,7 @@ class HabitTile extends StatelessWidget {
             decoration: BoxDecoration(
               color: isCompleted
                  ? Colors.green
-                 :Theme.of(context).colorScheme.secondary,
+                 :ThemeProvider.themeOf(context).id == "light_theme" ? Colors.grey[300] : Colors.grey[800] ,
               borderRadius: BorderRadius.circular(8)
             ),
             padding: const EdgeInsets.all(12),
@@ -59,11 +62,12 @@ class HabitTile extends StatelessWidget {
             child: ListTile(
               title: Text(
                 text,
-                style: TextStyle(color: Colors.white ),
+                style: TextStyle(color:  ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
                 ),
               leading: Checkbox(
                 value: isCompleted, 
                 activeColor: Colors.green,
+                side: BorderSide(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
                 onChanged: onChanged),
             ),
           ),

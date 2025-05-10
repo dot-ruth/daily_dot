@@ -40,6 +40,7 @@ dependencies:
   isar_flutter_libs: ^3.1.0+1
   flutter_slidable: ^4.0.0
   flutter_heatmap_calendar: ^1.0.5
+  theme_provider: ^0.6.0
 
 dev_dependencies:
   flutter_test:
