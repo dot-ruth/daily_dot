@@ -41,6 +41,10 @@ class _HomePageState extends State<HomePage> {
       context: context, 
       builder: (context) => AlertDialog(
         backgroundColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.white : Color(0xff0a0a0a),
+        title:  Text(
+        "Add Habit",
+        style:  TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+        ),
         content: TextField(
           controller: textController,
           style:  TextStyle( color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
@@ -102,6 +106,10 @@ class _HomePageState extends State<HomePage> {
     context: context, 
     builder: (context) => AlertDialog(
       backgroundColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.white : Color(0xff0a0a0a),
+      title:  Text(
+        "Edit Habit",
+        style:  TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+        ),
       content: TextField(
         controller: textController,
         style:  TextStyle( color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white)
@@ -238,6 +246,7 @@ class _HomePageState extends State<HomePage> {
               startDate: snapshot.data!, 
               datasets: prepHeatMapDataset(habits),
               colorsets: selectedColorSet,
+              habits: habits,
               );
            }
            else {

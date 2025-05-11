@@ -41,6 +41,7 @@ dependencies:
   flutter_slidable: ^4.0.0
   flutter_heatmap_calendar: ^1.0.5
   theme_provider: ^0.6.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
