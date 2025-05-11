@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/components/habit_heat_map.dart';
 import 'package:habit_tracker/components/habit_tile.dart';
+import 'package:habit_tracker/components/heatmap_color_bottomsheet.dart';
 import 'package:habit_tracker/database/habit_database.dart';
 import 'package:habit_tracker/models/habit.dart';
 import 'package:habit_tracker/util/habit_util.dart';
@@ -21,6 +22,15 @@ class _HomePageState extends State<HomePage> {
     Provider.of<HabitDatabase>(context, listen: false).readHabits();
     super.initState();
   }
+
+  //default color set for the heat map
+  Map<int, Color> selectedColorSet = {
+    1: Colors.green.shade200,
+    2: Colors.green.shade300,
+    3: Colors.green.shade400,
+    4: Colors.green.shade500,
+    5: Colors.green.shade600,
+  };
 
   // text controller to access what the user typed in 
   final TextEditingController textController = TextEditingController();
@@ -181,11 +191,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return  Scaffold(
        appBar: AppBar(
-        title: const Text("Habit Tracker"),
+        title: const Text("Dot Daily"),
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: () {}, 
+            onPressed: _showColorPickerBottomSheet, 
             icon: Icon(Icons.settings)), 
           IconButton(
             onPressed: () {
@@ -226,7 +236,8 @@ class _HomePageState extends State<HomePage> {
            if(snapshot.hasData){
              return HabitHeatMap(
               startDate: snapshot.data!, 
-              datasets: prepHeatMapDataset(habits)
+              datasets: prepHeatMapDataset(habits),
+              colorsets: selectedColorSet,
               );
            }
            else {
@@ -266,10 +277,31 @@ class _HomePageState extends State<HomePage> {
         onChanged: (value) => checkHabitOnOff(value, habit),
         editHabit: (context) => editHabitDialogBox(habit),
         deleteHabit: (context) => deleteHabitDialogBox(habit),
+        color: selectedColorSet[1]!,
         );
 
     });
 
   }
-    
+
+  void _showColorPickerBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: ThemeProvider.themeOf(context).id == "light_theme"
+          ? Colors.white
+          : Colors.grey[800],
+      builder: (BuildContext context) {
+        return Container(
+          height: 300,
+          width: double.infinity,
+          child: HeatmapColorBottomsheet(
+            onColorSelected: (selected) {
+              setState(() {
+                selectedColorSet = selected;
+              });
+            }),
+        );
+      },
+    );
+  }
 }

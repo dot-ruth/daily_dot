@@ -8,6 +8,7 @@ class HabitTile extends StatelessWidget {
   final Function(bool?)? onChanged;
   final Function(BuildContext)? editHabit;
   final Function(BuildContext)? deleteHabit;
+  final Color color;
 
   const HabitTile({
     super.key,
@@ -16,6 +17,7 @@ class HabitTile extends StatelessWidget {
     required this.onChanged,
     required this.editHabit,
     required this.deleteHabit,
+    required this.color,
     });
 
   @override
@@ -53,12 +55,11 @@ class HabitTile extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: isCompleted
-                 ? Colors.green
+                 ? color
                  :ThemeProvider.themeOf(context).id == "light_theme" ? Colors.grey[300] : Colors.grey[800] ,
               borderRadius: BorderRadius.circular(8)
             ),
             padding: const EdgeInsets.all(12),
-            // margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
             child: ListTile(
               title: Text(
                 text,
@@ -66,7 +67,7 @@ class HabitTile extends StatelessWidget {
                 ),
               leading: Checkbox(
                 value: isCompleted, 
-                activeColor: Colors.green,
+                activeColor: color,
                 side: BorderSide(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
                 onChanged: onChanged),
             ),

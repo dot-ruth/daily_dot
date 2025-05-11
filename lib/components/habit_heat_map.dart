@@ -5,11 +5,13 @@ import 'package:theme_provider/theme_provider.dart';
 class HabitHeatMap extends StatelessWidget {
   final DateTime startDate;
   final Map<DateTime, int> datasets;
+  final Map<int, Color> colorsets;
 
   const HabitHeatMap({
     super.key,
     required this.startDate,
     required this.datasets,
+    required this.colorsets,
     });
 
   @override
@@ -19,19 +21,13 @@ class HabitHeatMap extends StatelessWidget {
       endDate: DateTime.now(),
       datasets: datasets,
       colorMode: ColorMode.color,
-      defaultColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.grey[300] : Colors.grey[800],
+      defaultColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.grey.shade300 : Colors.grey.shade800,
       textColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white,
       showColorTip: false,
       showText: true,
       scrollable: true,
       size: 30,
-      colorsets: {
-        1: Colors.green.shade200,
-        2: Colors.green.shade300,
-        3: Colors.green.shade400,
-        4: Colors.green.shade500,
-        5: Colors.green.shade600,
-      },
+      colorsets: colorsets
     );
   }
 }
