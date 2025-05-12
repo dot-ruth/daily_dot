@@ -39,56 +39,70 @@ class _HomePageState extends State<HomePage> {
   void createNewHabit() {
     showDialog(
       context: context, 
-      builder: (context) => AlertDialog(
-        backgroundColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.white : Color(0xff0a0a0a),
-        title:  Text(
-        "Add Habit",
-        style:  TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
-        ),
-        content: TextField(
-          controller: textController,
-          style:  TextStyle( color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
-          decoration: const InputDecoration(
-            hintText: "Add a new habit"
-            
-            ),
-        ),
-        actions: [
-          //save button
-          MaterialButton(onPressed: () {
-            String newHabitName = textController.text;
+      builder: (context) { 
+        String habitName = '';
 
-            // save to db
-            context.read<HabitDatabase>().addHabit(newHabitName);
-
-            //pop the dialog box
-            Navigator.pop(context);
-
-            // clear controller 
-            textController.clear();
-          },
-          child: Text(
-            "Save",
-            style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
-            )
+        return StatefulBuilder(
+        builder: (context, setState) {
+        return AlertDialog(
+          backgroundColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.white : Color(0xff0a0a0a),
+          title:  Text(
+          "Add Habit",
+          style:  TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
           ),
-
-          // cancle button 
-          MaterialButton(onPressed: () {
-            // close the dialog box
-            Navigator.pop(context);
-
-            // clear the controller 
-            textController.clear();
-          },
-          child: Text(
-            "Cancle",
-            style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+          content: TextField(
+            controller: textController,
+            style:  TextStyle( color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+            decoration: const InputDecoration(
+              hintText: "Add a new habit"
+              ),
+              onChanged: (value) {
+              setState(() {
+                habitName = value;
+              });
+            },
+          ),
+          actions: [
+            //save button
+            MaterialButton(onPressed: habitName.trim().isEmpty ? null :
+            () {
+              String newHabitName = textController.text;
+        
+              // save to db
+              context.read<HabitDatabase>().addHabit(newHabitName);
+        
+              //pop the dialog box
+              Navigator.pop(context);
+        
+              // clear controller 
+              textController.clear();
+            },
+            child: Text(
+              "Save",
+              style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+              )
+            ),
+        
+            // cancle button 
+            MaterialButton(onPressed: () {
+              // close the dialog box
+              Navigator.pop(context);
+        
+              // clear the controller 
+              textController.clear();
+            },
+            child: Text(
+              "Cancle",
+              style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
+              )
             )
-          )
-        ],
-      ));
+          ],
+        );
+      }
+    );
   }
+);
+}
 
  // check the habit on and off 
   void checkHabitOnOff(bool? value, Habit habit) {
@@ -199,7 +213,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return  Scaffold(
        appBar: AppBar(
-        title: const Text("Dot Daily"),
+        title: const Text("Daily Dot"),
         elevation: 0,
         actions: [
           IconButton(
@@ -214,8 +228,13 @@ class _HomePageState extends State<HomePage> {
        ),
        floatingActionButton: FloatingActionButton(
         onPressed: createNewHabit,
-        elevation: 0,
         backgroundColor:ThemeProvider.themeOf(context).id == "light_theme" ? Colors.grey[300] : Colors.grey[800],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(
+            width: 1,
+            color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white)
+          ),
         child:  Icon(
           Icons.add,
           color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white,

@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
               ),
               titleTextStyle: const TextStyle(
                 color: Colors.white,
-                fontSize: 18
+                fontSize: 22
               )
             ),
           ), 
