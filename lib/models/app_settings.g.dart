@@ -17,8 +17,33 @@ const AppSettingsSchema = CollectionSchema(
   name: r'AppSettings',
   id: -5633561779022347008,
   properties: {
-    r'firstLaunchDate': PropertySchema(
+    r'colorValue1': PropertySchema(
       id: 0,
+      name: r'colorValue1',
+      type: IsarType.long,
+    ),
+    r'colorValue2': PropertySchema(
+      id: 1,
+      name: r'colorValue2',
+      type: IsarType.long,
+    ),
+    r'colorValue3': PropertySchema(
+      id: 2,
+      name: r'colorValue3',
+      type: IsarType.long,
+    ),
+    r'colorValue4': PropertySchema(
+      id: 3,
+      name: r'colorValue4',
+      type: IsarType.long,
+    ),
+    r'colorValue5': PropertySchema(
+      id: 4,
+      name: r'colorValue5',
+      type: IsarType.long,
+    ),
+    r'firstLaunchDate': PropertySchema(
+      id: 5,
       name: r'firstLaunchDate',
       type: IsarType.dateTime,
     )
@@ -52,7 +77,12 @@ void _appSettingsSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.firstLaunchDate);
+  writer.writeLong(offsets[0], object.colorValue1);
+  writer.writeLong(offsets[1], object.colorValue2);
+  writer.writeLong(offsets[2], object.colorValue3);
+  writer.writeLong(offsets[3], object.colorValue4);
+  writer.writeLong(offsets[4], object.colorValue5);
+  writer.writeDateTime(offsets[5], object.firstLaunchDate);
 }
 
 AppSettings _appSettingsDeserialize(
@@ -62,7 +92,12 @@ AppSettings _appSettingsDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = AppSettings();
-  object.firstLaunchDate = reader.readDateTimeOrNull(offsets[0]);
+  object.colorValue1 = reader.readLongOrNull(offsets[0]);
+  object.colorValue2 = reader.readLongOrNull(offsets[1]);
+  object.colorValue3 = reader.readLongOrNull(offsets[2]);
+  object.colorValue4 = reader.readLongOrNull(offsets[3]);
+  object.colorValue5 = reader.readLongOrNull(offsets[4]);
+  object.firstLaunchDate = reader.readDateTimeOrNull(offsets[5]);
   object.id = id;
   return object;
 }
@@ -75,6 +110,16 @@ P _appSettingsDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
+      return (reader.readLongOrNull(offset)) as P;
+    case 1:
+      return (reader.readLongOrNull(offset)) as P;
+    case 2:
+      return (reader.readLongOrNull(offset)) as P;
+    case 3:
+      return (reader.readLongOrNull(offset)) as P;
+    case 4:
+      return (reader.readLongOrNull(offset)) as P;
+    case 5:
       return (reader.readDateTimeOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -174,6 +219,376 @@ extension AppSettingsQueryWhere
 
 extension AppSettingsQueryFilter
     on QueryBuilder<AppSettings, AppSettings, QFilterCondition> {
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue1IsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'colorValue1',
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue1IsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'colorValue1',
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue1EqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'colorValue1',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue1GreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'colorValue1',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue1LessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'colorValue1',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue1Between(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'colorValue1',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue2IsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'colorValue2',
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue2IsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'colorValue2',
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue2EqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'colorValue2',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue2GreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'colorValue2',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue2LessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'colorValue2',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue2Between(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'colorValue2',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue3IsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'colorValue3',
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue3IsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'colorValue3',
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue3EqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'colorValue3',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue3GreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'colorValue3',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue3LessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'colorValue3',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue3Between(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'colorValue3',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue4IsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'colorValue4',
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue4IsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'colorValue4',
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue4EqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'colorValue4',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue4GreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'colorValue4',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue4LessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'colorValue4',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue4Between(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'colorValue4',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue5IsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'colorValue5',
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue5IsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'colorValue5',
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue5EqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'colorValue5',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue5GreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'colorValue5',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue5LessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'colorValue5',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      colorValue5Between(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'colorValue5',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
       firstLaunchDateIsNull() {
     return QueryBuilder.apply(this, (query) {
@@ -310,6 +725,66 @@ extension AppSettingsQueryLinks
 
 extension AppSettingsQuerySortBy
     on QueryBuilder<AppSettings, AppSettings, QSortBy> {
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByColorValue1() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue1', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByColorValue1Desc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue1', Sort.desc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByColorValue2() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue2', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByColorValue2Desc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue2', Sort.desc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByColorValue3() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue3', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByColorValue3Desc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue3', Sort.desc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByColorValue4() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue4', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByColorValue4Desc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue4', Sort.desc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByColorValue5() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue5', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByColorValue5Desc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue5', Sort.desc);
+    });
+  }
+
   QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByFirstLaunchDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'firstLaunchDate', Sort.asc);
@@ -326,6 +801,66 @@ extension AppSettingsQuerySortBy
 
 extension AppSettingsQuerySortThenBy
     on QueryBuilder<AppSettings, AppSettings, QSortThenBy> {
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByColorValue1() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue1', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByColorValue1Desc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue1', Sort.desc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByColorValue2() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue2', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByColorValue2Desc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue2', Sort.desc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByColorValue3() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue3', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByColorValue3Desc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue3', Sort.desc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByColorValue4() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue4', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByColorValue4Desc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue4', Sort.desc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByColorValue5() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue5', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByColorValue5Desc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorValue5', Sort.desc);
+    });
+  }
+
   QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByFirstLaunchDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'firstLaunchDate', Sort.asc);
@@ -354,6 +889,36 @@ extension AppSettingsQuerySortThenBy
 
 extension AppSettingsQueryWhereDistinct
     on QueryBuilder<AppSettings, AppSettings, QDistinct> {
+  QueryBuilder<AppSettings, AppSettings, QDistinct> distinctByColorValue1() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'colorValue1');
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QDistinct> distinctByColorValue2() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'colorValue2');
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QDistinct> distinctByColorValue3() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'colorValue3');
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QDistinct> distinctByColorValue4() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'colorValue4');
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QDistinct> distinctByColorValue5() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'colorValue5');
+    });
+  }
+
   QueryBuilder<AppSettings, AppSettings, QDistinct>
       distinctByFirstLaunchDate() {
     return QueryBuilder.apply(this, (query) {
@@ -367,6 +932,36 @@ extension AppSettingsQueryProperty
   QueryBuilder<AppSettings, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<AppSettings, int?, QQueryOperations> colorValue1Property() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'colorValue1');
+    });
+  }
+
+  QueryBuilder<AppSettings, int?, QQueryOperations> colorValue2Property() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'colorValue2');
+    });
+  }
+
+  QueryBuilder<AppSettings, int?, QQueryOperations> colorValue3Property() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'colorValue3');
+    });
+  }
+
+  QueryBuilder<AppSettings, int?, QQueryOperations> colorValue4Property() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'colorValue4');
+    });
+  }
+
+  QueryBuilder<AppSettings, int?, QQueryOperations> colorValue5Property() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'colorValue5');
     });
   }
 

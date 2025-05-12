@@ -8,4 +8,12 @@ part 'app_settings.g.dart';
 class AppSettings {
   Id id = Isar.autoIncrement;
   DateTime? firstLaunchDate;
+
+  // color set fields
+  int? colorValue1;
+  int? colorValue2;
+  int? colorValue3;
+  int? colorValue4;
+  int? colorValue5;
+
 }

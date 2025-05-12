@@ -1,3 +1,4 @@
+import 'package:daily_dot/database/habit_database.dart';
 import 'package:flutter/material.dart';
 import 'package:theme_provider/theme_provider.dart';
 
@@ -62,6 +63,7 @@ class _HeatmapColorBottomsheetState extends State<HeatmapColorBottomsheet> {
                                   5: color.shade600,
                                 };
                         widget.onColorSelected(selected);
+                        HabitDatabase().saveColorSet(selected);
                         Navigator.pop(context);
                       },
                       child: CircleAvatar(

@@ -31,6 +31,44 @@ class HabitDatabase extends ChangeNotifier {
     }
   }
 
+  Future<void> saveColorSet(Map<int, Color> colorSet) async {
+  final existingSettings = await isar.appSettings.where().findFirst();
+
+  final settings = existingSettings ?? AppSettings();
+
+  settings.colorValue1 = colorSet[1]?.value;
+  settings.colorValue2 = colorSet[2]?.value;
+  settings.colorValue3 = colorSet[3]?.value;
+  settings.colorValue4 = colorSet[4]?.value;
+  settings.colorValue5 = colorSet[5]?.value;
+
+  await isar.writeTxn(() => isar.appSettings.put(settings));
+}
+
+Future<Map<int, Color>> loadColorSet() async {
+  final settings = await isar.appSettings.where().findFirst();
+
+  if (settings == null || settings.colorValue1 == null) {
+    // default to green shades if not set
+    return {
+      1: Colors.green.shade200,
+      2: Colors.green.shade300,
+      3: Colors.green.shade400,
+      4: Colors.green.shade500,
+      5: Colors.green.shade600,
+    };
+  }
+
+  return {
+    1: Color(settings.colorValue1!),
+    2: Color(settings.colorValue2!),
+    3: Color(settings.colorValue3!),
+    4: Color(settings.colorValue4!),
+    5: Color(settings.colorValue5!),
+  };
+}
+
+
 
   // get first date of app startup ( for heatmap )
   Future<DateTime?> getFirstLaunchDate() async {

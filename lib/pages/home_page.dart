@@ -15,22 +15,21 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>  {
+
+late Map<int, Color> selectedColorSet;
+
+Future<void> loadColors() async {
+  selectedColorSet = await HabitDatabase().loadColorSet();
+  setState(() {}); 
+}
 
   @override
   void initState() {
     Provider.of<HabitDatabase>(context, listen: false).readHabits();
     super.initState();
+    loadColors();
   }
-
-  //default color set for the heat map
-  Map<int, Color> selectedColorSet = {
-    1: Colors.green.shade200,
-    2: Colors.green.shade300,
-    3: Colors.green.shade400,
-    4: Colors.green.shade500,
-    5: Colors.green.shade600,
-  };
 
   // text controller to access what the user typed in 
   final TextEditingController textController = TextEditingController();
