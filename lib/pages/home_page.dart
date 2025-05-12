@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/components/habit_heat_map.dart';
-import 'package:habit_tracker/components/habit_tile.dart';
-import 'package:habit_tracker/components/heatmap_color_bottomsheet.dart';
-import 'package:habit_tracker/database/habit_database.dart';
-import 'package:habit_tracker/models/habit.dart';
-import 'package:habit_tracker/util/habit_util.dart';
+import 'package:daily_dot/components/habit_heat_map.dart';
+import 'package:daily_dot/components/habit_tile.dart';
+import 'package:daily_dot/components/heatmap_color_bottomsheet.dart';
+import 'package:daily_dot/database/habit_database.dart';
+import 'package:daily_dot/models/habit.dart';
+import 'package:daily_dot/util/habit_util.dart';
 import 'package:provider/provider.dart';
 import 'package:theme_provider/theme_provider.dart';
 
@@ -287,28 +287,31 @@ class _HomePageState extends State<HomePage> {
   List<Habit> habits = habitDatabase.currentHabits;
 
   //return list of habits UI
-  return ListView.builder(
-    itemCount: habits.length,
-    // nested list scrolling issue fix
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    itemBuilder: (context, index) {
-      // get each habit 
-      final habit = habits[index];
-
-      //check if the habit is done today 
-      bool isCompletedToday = isHabitCompletedToday(habit.completedDays);
-
-      return HabitTile(
-        text: habit.name, 
-        isCompleted: isCompletedToday,
-        onChanged: (value) => checkHabitOnOff(value, habit),
-        editHabit: (context) => editHabitDialogBox(habit),
-        deleteHabit: (context) => deleteHabitDialogBox(habit),
-        color: selectedColorSet[1]!,
-        );
-
-    });
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(16.0,10.0,16.0,60.0),
+    child: ListView.builder(
+      itemCount: habits.length,
+      // nested list scrolling issue fix
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        // get each habit 
+        final habit = habits[index];
+    
+        //check if the habit is done today 
+        bool isCompletedToday = isHabitCompletedToday(habit.completedDays);
+    
+        return HabitTile(
+          text: habit.name, 
+          isCompleted: isCompletedToday,
+          onChanged: (value) => checkHabitOnOff(value, habit),
+          editHabit: (context) => editHabitDialogBox(habit),
+          deleteHabit: (context) => deleteHabitDialogBox(habit),
+          color: selectedColorSet[1]!,
+          );
+    
+      }),
+  );
 
   }
 

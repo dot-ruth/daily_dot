@@ -1,7 +1,7 @@
 // given a habit list of completion days , is the habit completed today
 //
 
-import 'package:habit_tracker/models/habit.dart';
+import 'package:daily_dot/models/habit.dart';
 
 bool isHabitCompletedToday(List<DateTime> completedDays) {
   final today = DateTime.now();

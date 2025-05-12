@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
-import 'package:habit_tracker/models/habit.dart';
+import 'package:daily_dot/models/habit.dart';
 import 'package:intl/intl.dart';
 import 'package:theme_provider/theme_provider.dart';
 

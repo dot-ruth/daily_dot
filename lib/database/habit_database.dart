@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/models/app_settings.dart';
-import 'package:habit_tracker/models/habit.dart';
+import 'package:daily_dot/models/app_settings.dart';
+import 'package:daily_dot/models/habit.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
