@@ -91,7 +91,7 @@ Future<void> loadColors() async {
               textController.clear();
             },
             child: Text(
-              "Cancle",
+              "Cancel",
               style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
               )
             )
@@ -156,7 +156,7 @@ Future<void> loadColors() async {
             textController.clear();
           },
           child: Text(
-            "Cancle",
+            "Cancel",
             style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
             )
           )
@@ -200,7 +200,7 @@ Future<void> loadColors() async {
             Navigator.pop(context);
           },
           child: Text(
-            "Cancle",
+            "Cancel",
             style: TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
             )
           )
