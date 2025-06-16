@@ -51,3 +51,50 @@ String getRandomBody() {
 }
 
 int randomIndex(int length) => DateTime.now().second % length;
+
+int calculateLongestStreak(List<DateTime> completedDays) {
+  if (completedDays.isEmpty) return 0;
+
+  final dates = completedDays
+      .map((d) => DateTime(d.year, d.month, d.day))
+      .toSet()
+      .toList()
+    ..sort();
+
+  int longest = 1;
+  int current = 1;
+
+  for (int i = 1; i < dates.length; i++) {
+    final prev = dates[i - 1];
+    final curr = dates[i];
+
+    if (curr.difference(prev).inDays == 1) {
+      current += 1;
+      longest = current > longest ? current : longest;
+    } else if (curr != prev) {
+      current = 1;
+    }
+  }
+
+  return longest;
+}
+
+int calculateCurrentStreak(List<DateTime> completedDays) {
+  if (completedDays.isEmpty) return 0;
+
+  final today = DateTime.now();
+  final todayDate = DateTime(today.year, today.month, today.day);
+  final completed = completedDays
+      .map((d) => DateTime(d.year, d.month, d.day))
+      .toSet();
+
+  int streak = 0;
+  DateTime date = todayDate;
+
+  while (completed.contains(date)) {
+    streak += 1;
+    date = date.subtract(Duration(days: 1));
+  }
+
+  return streak;
+}

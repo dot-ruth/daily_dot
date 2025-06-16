@@ -181,7 +181,7 @@ Future<void> loadColors() async {
         style:  TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
         ),
       content:  Text(
-        "Are you sure you want to delete this habit?",
+        "Are you sure you want to delete this habit? Your Habit streak will be lost!",
         style:  TextStyle(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
         ),
       actions: [
@@ -307,6 +307,10 @@ Future<void> loadColors() async {
     
         //check if the habit is done today 
         bool isCompletedToday = isHabitCompletedToday(habit.completedDays);
+
+        habit.longestStreak  = calculateLongestStreak(habit.completedDays);
+        
+        habit.currentStreak = calculateCurrentStreak(habit.completedDays);
     
         return HabitTile(
           text: habit.name, 
@@ -315,6 +319,8 @@ Future<void> loadColors() async {
           editHabit: (context) => editHabitDialogBox(habit),
           deleteHabit: (context) => deleteHabitDialogBox(habit),
           color: selectedColorSet[1]!,
+          currentStreak: habit.currentStreak,
+          longestStreak: habit.longestStreak,
           );
     
       }),

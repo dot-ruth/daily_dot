@@ -13,4 +13,8 @@ class Habit {
 
   List<DateTime> completedDays = [];
 
+  int currentStreak = 0;
+
+  int longestStreak = 0;
+
 }

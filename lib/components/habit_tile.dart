@@ -8,6 +8,8 @@ class HabitTile extends StatelessWidget {
   final Function(bool?)? onChanged;
   final Function(BuildContext)? editHabit;
   final Function(BuildContext)? deleteHabit;
+  final int currentStreak;
+  final int longestStreak;
   final Color color;
 
   const HabitTile({
@@ -18,6 +20,8 @@ class HabitTile extends StatelessWidget {
     required this.editHabit,
     required this.deleteHabit,
     required this.color,
+    required this.currentStreak,
+    required this.longestStreak
     });
 
   @override
@@ -59,7 +63,7 @@ class HabitTile extends StatelessWidget {
                  :ThemeProvider.themeOf(context).id == "light_theme" ? Colors.grey[300] : Colors.grey[800] ,
               borderRadius: BorderRadius.circular(8)
             ),
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 4),
             child: ListTile(
               title: Text(
                 text,
@@ -70,6 +74,26 @@ class HabitTile extends StatelessWidget {
                 activeColor: color,
                 side: BorderSide(color: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white),
                 onChanged: onChanged),
+              trailing:Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '🔥 $currentStreak',
+                    style: TextStyle(
+                      color:  ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white,
+                      fontSize: 14
+                      ),
+                    ),
+                  SizedBox(height: 6),
+                  Text(
+                    '🏆 $longestStreak',
+                    style: TextStyle(
+                      color:  ThemeProvider.themeOf(context).id == "light_theme" ? Colors.black : Colors.white,
+                      fontSize: 14
+                      ),
+                   ),
+                ],
+              ) ,
             ),
           ),
         ),

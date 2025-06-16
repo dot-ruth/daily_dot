@@ -22,8 +22,18 @@ const HabitSchema = CollectionSchema(
       name: r'completedDays',
       type: IsarType.dateTimeList,
     ),
-    r'name': PropertySchema(
+    r'currentStreak': PropertySchema(
       id: 1,
+      name: r'currentStreak',
+      type: IsarType.long,
+    ),
+    r'longestStreak': PropertySchema(
+      id: 2,
+      name: r'longestStreak',
+      type: IsarType.long,
+    ),
+    r'name': PropertySchema(
+      id: 3,
       name: r'name',
       type: IsarType.string,
     )
@@ -60,7 +70,9 @@ void _habitSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeDateTimeList(offsets[0], object.completedDays);
-  writer.writeString(offsets[1], object.name);
+  writer.writeLong(offsets[1], object.currentStreak);
+  writer.writeLong(offsets[2], object.longestStreak);
+  writer.writeString(offsets[3], object.name);
 }
 
 Habit _habitDeserialize(
@@ -71,8 +83,10 @@ Habit _habitDeserialize(
 ) {
   final object = Habit();
   object.completedDays = reader.readDateTimeList(offsets[0]) ?? [];
+  object.currentStreak = reader.readLong(offsets[1]);
   object.id = id;
-  object.name = reader.readString(offsets[1]);
+  object.longestStreak = reader.readLong(offsets[2]);
+  object.name = reader.readString(offsets[3]);
   return object;
 }
 
@@ -86,6 +100,10 @@ P _habitDeserializeProp<P>(
     case 0:
       return (reader.readDateTimeList(offset) ?? []) as P;
     case 1:
+      return (reader.readLong(offset)) as P;
+    case 2:
+      return (reader.readLong(offset)) as P;
+    case 3:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -320,6 +338,59 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> currentStreakEqualTo(
+      int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'currentStreak',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> currentStreakGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'currentStreak',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> currentStreakLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'currentStreak',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> currentStreakBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'currentStreak',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<Habit, Habit, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -364,6 +435,59 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'id',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> longestStreakEqualTo(
+      int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'longestStreak',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> longestStreakGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'longestStreak',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> longestStreakLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'longestStreak',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> longestStreakBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'longestStreak',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -506,6 +630,30 @@ extension HabitQueryObject on QueryBuilder<Habit, Habit, QFilterCondition> {}
 extension HabitQueryLinks on QueryBuilder<Habit, Habit, QFilterCondition> {}
 
 extension HabitQuerySortBy on QueryBuilder<Habit, Habit, QSortBy> {
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByCurrentStreak() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'currentStreak', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByCurrentStreakDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'currentStreak', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByLongestStreak() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'longestStreak', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByLongestStreakDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'longestStreak', Sort.desc);
+    });
+  }
+
   QueryBuilder<Habit, Habit, QAfterSortBy> sortByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
@@ -520,6 +668,18 @@ extension HabitQuerySortBy on QueryBuilder<Habit, Habit, QSortBy> {
 }
 
 extension HabitQuerySortThenBy on QueryBuilder<Habit, Habit, QSortThenBy> {
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByCurrentStreak() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'currentStreak', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByCurrentStreakDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'currentStreak', Sort.desc);
+    });
+  }
+
   QueryBuilder<Habit, Habit, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -529,6 +689,18 @@ extension HabitQuerySortThenBy on QueryBuilder<Habit, Habit, QSortThenBy> {
   QueryBuilder<Habit, Habit, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByLongestStreak() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'longestStreak', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByLongestStreakDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'longestStreak', Sort.desc);
     });
   }
 
@@ -552,6 +724,18 @@ extension HabitQueryWhereDistinct on QueryBuilder<Habit, Habit, QDistinct> {
     });
   }
 
+  QueryBuilder<Habit, Habit, QDistinct> distinctByCurrentStreak() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'currentStreak');
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QDistinct> distinctByLongestStreak() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'longestStreak');
+    });
+  }
+
   QueryBuilder<Habit, Habit, QDistinct> distinctByName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -571,6 +755,18 @@ extension HabitQueryProperty on QueryBuilder<Habit, Habit, QQueryProperty> {
       completedDaysProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'completedDays');
+    });
+  }
+
+  QueryBuilder<Habit, int, QQueryOperations> currentStreakProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'currentStreak');
+    });
+  }
+
+  QueryBuilder<Habit, int, QQueryOperations> longestStreakProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'longestStreak');
     });
   }
 
