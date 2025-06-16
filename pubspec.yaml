@@ -42,6 +42,9 @@ dependencies:
   flutter_heatmap_calendar: ^1.0.5
   theme_provider: ^0.6.0
   intl: ^0.20.2
+  flutter_local_notifications: ^19.2.1
+  timezone: ^0.10.1
+  flutter_timezone: ^4.1.1
 
 dev_dependencies:
   flutter_test:

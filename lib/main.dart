@@ -1,3 +1,4 @@
+import 'package:daily_dot/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_dot/database/habit_database.dart';
 import 'package:daily_dot/pages/home_page.dart';
@@ -10,6 +11,10 @@ void main() async {
   // intialize database 
  await HabitDatabase.initalize();
  await HabitDatabase().saveFirstLaunchDate();
+
+ // intialize notification setup
+ await NotificationService().init();
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => HabitDatabase(),

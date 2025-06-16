@@ -1,3 +1,4 @@
+import 'package:daily_dot/components/time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_dot/components/habit_heat_map.dart';
 import 'package:daily_dot/components/habit_tile.dart';
@@ -18,6 +19,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>  {
 
 late Map<int, Color> selectedColorSet;
+static const List<Tab> myTabs = <Tab>[
+    Tab(text: 'Theme Color', key: ValueKey(1)),
+    Tab(text: 'Notification Time',key: ValueKey(2)),
+  ];
 
 Future<void> loadColors() async {
   selectedColorSet = await HabitDatabase().loadColorSet();
@@ -216,7 +221,7 @@ Future<void> loadColors() async {
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: _showColorPickerBottomSheet, 
+            onPressed: _showSettingBottomSheet, 
             icon: Icon(Icons.settings)), 
           IconButton(
             onPressed: () {
@@ -260,12 +265,15 @@ Future<void> loadColors() async {
       future: habitDatabase.getFirstLaunchDate(), 
       builder: (context, snapshot) {
            if(snapshot.hasData){
-             return HabitHeatMap(
-              startDate: snapshot.data!, 
-              datasets: prepHeatMapDataset(habits),
-              colorsets: selectedColorSet,
-              habits: habits,
-              );
+             return Padding(
+               padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
+               child: HabitHeatMap(
+                startDate: snapshot.data!, 
+                datasets: prepHeatMapDataset(habits),
+                colorsets: selectedColorSet,
+                habits: habits,
+                ),
+             );
            }
            else {
             return Container();
@@ -314,24 +322,47 @@ Future<void> loadColors() async {
 
   }
 
-  void _showColorPickerBottomSheet() {
+  void _showSettingBottomSheet() {
     showModalBottomSheet(
       context: context,
+      
       backgroundColor: ThemeProvider.themeOf(context).id == "light_theme"
           ? Colors.white
           : Colors.grey[800],
       builder: (BuildContext context) {
-        return Container(
-          height: 300,
-          width: double.infinity,
-          child: HeatmapColorBottomsheet(
-            onColorSelected: (selected) {
-              setState(() {
-                selectedColorSet = selected;
-              });
-            }),
-        );
-      },
+        return DefaultTabController(
+      length: myTabs.length,
+      child: Scaffold(
+        appBar:  TabBar(
+            tabs: myTabs,
+            labelColor: ThemeProvider.themeOf(context).id == "light_theme"? Colors.black: Colors.white,
+            indicatorColor: ThemeProvider.themeOf(context).id == "light_theme"? Colors.black: Colors.white,
+          ),
+        body: TabBarView(
+          children: myTabs.map((Tab tab) {
+            // final String label = tab.text!.toLowerCase();
+            if(tab.key is ValueKey<int> && (tab.key as ValueKey<int>).value == 1){
+              return SizedBox(
+                  height: 300,
+                  width: double.infinity,
+                  child: HeatmapColorBottomsheet(
+                    onColorSelected: (selected) {
+                      setState(() {
+                        selectedColorSet = selected;
+                      });
+                    }),
+                );
+            }else {
+              return Center(
+              child: TimePicker()
+            );
+            }
+            
+          }).toList(),
+        ),
+      ),
+    );
+      }
     );
   }
 }

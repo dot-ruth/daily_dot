@@ -22,7 +22,7 @@ class HabitHeatMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return HeatMap(
       startDate: startDate,
-      endDate: DateTime.now(),
+      endDate: startDate.add(Duration(days: 90)).isBefore(DateTime.now())? DateTime.now() : startDate.add(Duration(days: 90)),
       datasets: datasets,
       colorMode: ColorMode.color,
       defaultColor: ThemeProvider.themeOf(context).id == "light_theme" ? Colors.grey.shade300 : Colors.grey.shade800,
