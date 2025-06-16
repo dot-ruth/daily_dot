@@ -30,5 +30,24 @@ Map<DateTime, int> prepHeatMapDataset(List<Habit> habits) {
    return dataset;
 }
 
+String getRandomTitle() {
+  final titles = [
+    "Time to shine ✨",
+    "Dot your day!",
+    "Let’s build that streak 💪",
+    "Another day, another dot 🟢",
+  ];
+  return titles[randomIndex(titles.length)];
+}
 
- 
+String getRandomBody() {
+  final messages = [
+    "Your future self is proud! Go tick off your habits 📅",
+    "Don’t break the chain! 🔗",
+    "Just 30 seconds to feel accomplished 🎉",
+    "Consistency beats motivation. Let’s go!",
+  ];
+  return messages[randomIndex(messages.length)];
+}
+
+int randomIndex(int length) => DateTime.now().second % length;
