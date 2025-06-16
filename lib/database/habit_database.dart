@@ -126,6 +126,23 @@ Future<Map<int, Color>> loadColorSet() async {
             today.month, 
             today.day
             ));
+
+        // record streak 
+        final todayDate = DateTime(today.year, today.month, today.day);
+        final yesterday = todayDate.subtract(Duration(days: 1));
+        final completedDates = habit.completedDays
+                                    .map((d) => DateTime(d.year, d.month, d.day))
+                                    .toSet();
+          if (completedDates.contains(yesterday)) {
+            habit.currentStreak += 1;
+          } else {
+            habit.currentStreak = 1;
+          }
+
+          if (habit.currentStreak > habit.longestStreak) {
+            habit.longestStreak = habit.currentStreak;
+          }
+         
         }
         // if the habit is not completed, remove the current date form the list 
         else {
